@@ -1,0 +1,59 @@
+services:
+  eureka-service:
+    image: eureka
+    build: ../../EurekaService
+    ports:
+      - "8761:8761"
+
+
+  gateway-service:
+    image: gateway
+    build: ../../ApiGateWay
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_HOST: https://eureka:8761/eureka/
+    depends_on:
+      - eureka-service
+
+
+  auth-service:
+    image: auth-service
+    build: ../../AuthService_
+    ports:
+      - "8084:8084"
+    environment:
+      EUREKA_HOST: https://eureka:8761/eureka/
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: 8463
+    depends_on:
+      - eureka-service
+      - db
+
+
+
+  channel-service:
+    image: channel-service
+    build: ../../ChannelService
+    ports:
+      - "8085:8085"
+    environment:
+      EUREKA_HOST: https://eureka:8761/eureka/
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: 8463
+    depends_on:
+      - eureka-service
+      - db
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 8463
+      POSTGRES_DB: metube
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
