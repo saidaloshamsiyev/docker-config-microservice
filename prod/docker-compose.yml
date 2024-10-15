@@ -43,6 +43,7 @@ services:
       - eureka-service
       - db
 
+
   db:
     image: postgres
     ports:
