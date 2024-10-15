@@ -4,6 +4,7 @@ services:
     ports:
       - "8761:8761"
 
+
   gateway-service:
     image: saidaloshamsiyev1/gateway-service
     ports:
