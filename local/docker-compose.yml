@@ -26,7 +26,7 @@ services:
       EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
       DB_USERNAME: postgres
-      DB_PASSWORD: 8463
+      DB_PASSWORD: 1234
     depends_on:
       - eureka-service
       - db
@@ -42,7 +42,7 @@ services:
       EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
       DB_USERNAME: postgres
-      DB_PASSWORD: 8463
+      DB_PASSWORD: 1234
     depends_on:
       - eureka-service
       - db
