@@ -29,8 +29,6 @@ services:
       - db
 
 
-
-
   channel-service:
     image: saidaloshamsiyev1/channel-service
     ports:
