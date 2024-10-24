@@ -87,11 +87,11 @@ services:
 #      - kafka-net
 
   channel-service:
-    image:  saidaloshamsiyev1/channel-service1
+    image:  saidaloshamsiyev1/channel-service1::${VERSION}
     ports:
       - "8085:8085"
     environment:
-      EUREKA_URI: http://eureka-service:8761/eureka/:${VERSION}
+      EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
