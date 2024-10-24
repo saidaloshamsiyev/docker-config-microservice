@@ -1,3 +1,132 @@
+#services:
+#  eureka-service:
+#    build: ../../EurekaService
+#    ports:
+#      - "8761:8761"
+#
+#  gateway-service:
+#    build: ../../ApiGateway
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      EUREKA_URI: http://eureka-service:8761/eureka/
+#    depends_on:
+#      - eureka-service
+#
+#  auth-service:
+#    build: ../../AuthService_
+#    ports:
+#      - "8084:8084"
+#    environment:
+#      EUREKA_URI: http://eureka-service:8761/eureka/
+#      DB_HOST: db
+#      DB_USERNAME: postgres
+#      DB_PASSWORD: 1234
+#      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#    depends_on:
+#      - eureka-service
+#      - db
+#      - kafka
+#
+#  channel-service:
+#    build: ../../ChannelService
+#    ports:
+#      - "8085:8085"
+#    environment:
+#      EUREKA_URI: http://eureka-service:8761/eureka/
+#      DB_HOST: db
+#      DB_USERNAME: postgres
+#      DB_PASSWORD: 1234
+#      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#    depends_on:
+#      - eureka-service
+#      - db
+#      - kafka
+#
+#  db:
+#    image: postgres
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1234
+#      POSTGRES_DB: metube
+#    volumes:
+#      - ./db-data:/var/lib/postgresql/data
+#
+#  #  zookeeper:
+#  #    image: confluentinc/cp-zookeeper:latest
+#  #    environment:
+#  #      ZOOKEEPER_CLIENT_PORT: 2181
+#  #      ZOOKEEPER_TICK_TIME: 2000
+#  #    ports:
+#  #      - "2181:2181"
+#  #
+#  #
+#  #
+#  #  kafka:
+#  #    image: confluentinc/cp-kafka:latest
+#  #    ports:
+#  #      - "9092:9092"
+#  #    environment:
+#  #      KAFKA_BROKER_ID: 1
+#  #      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#  #      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+#  #      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+#  #      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+#  #      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#  #    depends_on:
+#  #      - zookeeper
+#
+#
+#  zookeeper:
+#    image: confluentinc/cp-zookeeper:latest
+#    hostname: zookeeper
+#    container_name: zookeeper
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    networks:
+#      - kafka-net
+#
+#  broker:
+#    image: confluentinc/cp-server:7.7.1
+#    hostname: broker
+#    container_name: broker
+#    depends_on:
+#      - zookeeper
+#    ports:
+#      - "9092:9092"
+#      - "9101:9101"
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+#      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+#    networks:
+#      - kafka-net
+#
+#  kafka-manager:
+#    image: hlebalbau/kafka-manager
+#    environment:
+#      ZK_HOSTS: zookeeper:2181
+#    ports:
+#      - "9000:9000"
+#    depends_on:
+#      - zookeeper
+#    networks:
+#      - kafka-net
+#      -
+#networks:
+#  kafka-net:
+#    driver: bridge
+
+
 services:
   eureka-service:
     build: ../../EurekaService
@@ -21,12 +150,14 @@ services:
       EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
       DB_USERNAME: postgres
-      DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_PASSWORD: 1234
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
       - eureka-service
       - db
-      - kafka
+      - broker
+    networks:
+      - kafka-net
 
   channel-service:
     build: ../../ChannelService
@@ -36,41 +167,68 @@ services:
       EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
       DB_USERNAME: postgres
-      DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_PASSWORD: 1234
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
-      - kafka
+      - broker
+    networks:
+      - kafka-net
 
   db:
     image: postgres
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: metube
+      POSTGRES_DB: metube_local
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
+    networks:
+      - kafka-net
 
-  kafka:
-    image: confluentinc/cp-kafka:latest
+  broker:
+    image: confluentinc/cp-server:7.7.1
+    hostname: broker
+    container_name: broker
+    depends_on:
+      - zookeeper
     ports:
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+    networks:
+      - kafka-net
+
+  kafka-manager:
+    image: hlebalbau/kafka-manager
+    environment:
+      ZK_HOSTS: zookeeper:2181
+    ports:
+      - "9000:9000"
     depends_on:
       - zookeeper
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge
+
+
