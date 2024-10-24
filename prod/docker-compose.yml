@@ -83,8 +83,8 @@ services:
       - eureka-service
       - db
 #      - broker
-    networks:
-      - kafka-net
+#    networks:
+#      - kafka-net
 
   channel-service:
     image: saidaloshamsiyev1/channel-service
@@ -100,8 +100,8 @@ services:
       - eureka-service
       - db
 #      - broker
-    networks:
-      - kafka-net
+#    networks:
+#      - kafka-net
 
   db:
     image: postgres
