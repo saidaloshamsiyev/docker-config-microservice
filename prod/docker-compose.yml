@@ -82,7 +82,7 @@ services:
     depends_on:
       - eureka-service
       - db
-      - broker
+#      - broker
     networks:
       - kafka-net
 
@@ -99,7 +99,7 @@ services:
     depends_on:
       - eureka-service
       - db
-      - broker
+#      - broker
     networks:
       - kafka-net
 
