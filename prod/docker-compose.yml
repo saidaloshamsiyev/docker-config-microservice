@@ -87,7 +87,7 @@ services:
 #      - kafka-net
 
   channel-service:
-    image:  saidaloshamsiyev1/channel-service1:${VERSION}
+    image: saidaloshamsiyev1/channel-service1:${VERSION}
     ports:
       - "8085:8085"
     environment:
