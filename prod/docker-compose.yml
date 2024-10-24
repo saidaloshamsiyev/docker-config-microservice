@@ -91,7 +91,7 @@ services:
     ports:
       - "8085:8085"
     environment:
-      EUREKA_URI: http://eureka-service:8761/eureka/
+      EUREKA_URI: http://eureka-service:8761/eureka/:${VERSION}
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
