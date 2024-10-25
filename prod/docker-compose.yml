@@ -70,7 +70,7 @@ services:
       - eureka-service
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:2
+    image: saidaloshamsiyev1/auth-service1:3
     ports:
       - "8084:8084"
     environment:
@@ -87,7 +87,7 @@ services:
       - kafka-net
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:7
+    image: saidaloshamsiyev1/channel-service1:8
     ports:
       - "8085:8085"
     environment:
@@ -113,6 +113,9 @@ services:
       POSTGRES_DB: metube
     volumes:
       - ./db-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - kafka-net
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
