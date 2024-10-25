@@ -78,16 +78,16 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-#      KAFKA_BOOTSTRAP_SERVERS: broker:29092
+    #      KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
       - eureka-service
       - db
-#      - broker
-#    networks:
-#      - kafka-net
+  #      - broker
+  #    networks:
+  #      - kafka-net
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:2
+    image: saidaloshamsiyev1/channel-service1:3
     ports:
       - "8085:8085"
     environment:
@@ -95,13 +95,13 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-#      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
+    #      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
-#      - broker
-#    networks:
-#      - kafka-net
+  #      - broker
+  #    networks:
+  #      - kafka-net
 
   db:
     image: postgres
