@@ -113,9 +113,7 @@ services:
       POSTGRES_DB: metube
     volumes:
       - ./db-data:/var/lib/postgresql/data
-    restart: always
-    networks:
-      - kafka-net
+
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
