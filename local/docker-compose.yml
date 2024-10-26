@@ -156,8 +156,7 @@ services:
       - eureka-service
       - db
       - broker
-    networks:
-      - kafka-net
+
 
   channel-service:
     build: ../../ChannelService
@@ -173,8 +172,7 @@ services:
       - eureka-service
       - db
       - broker
-    networks:
-      - kafka-net
+
 
   db:
     image: postgres

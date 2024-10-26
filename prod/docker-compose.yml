@@ -61,7 +61,7 @@ services:
       - "8761:8761"
 
   gateway-service:
-    image: saidaloshamsiyev1/gateway-service1:2
+    image: saidaloshamsiyev1/gateway-service1:5
     ports:
       - "8080:8080"
     environment:
@@ -70,7 +70,7 @@ services:
       - eureka-service
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:3
+    image: saidaloshamsiyev1/auth-service1:5
     ports:
       - "8084:8084"
     environment:
@@ -86,7 +86,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:8
+    image: saidaloshamsiyev1/channel-service1:9
     ports:
       - "8085:8085"
     environment:
