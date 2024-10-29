@@ -124,7 +124,7 @@ services:
     networks:
       - kafka-net
 
-  broker1:
+  broker:
     image: confluentinc/cp-server:7.7.1
     hostname: broker1
     container_name: broker1
