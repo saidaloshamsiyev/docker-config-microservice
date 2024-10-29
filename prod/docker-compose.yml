@@ -70,7 +70,7 @@ services:
       - eureka-service
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:6
+    image: saidaloshamsiyev1/auth-service1:7
     ports:
       - "8084:8084"
     environment:
@@ -78,17 +78,15 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092,broker2:29093,broker3:29094
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
       - eureka-service
       - db
       - broker
-      - broker2
-      - broker3
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:10
+    image: saidaloshamsiyev1/channel-service1:11
     ports:
       - "8085:8085"
     environment:
@@ -96,13 +94,11 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092,broker2:29093,broker3:29094 # Kafka broker ulanish manzili
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
       - broker
-      - broker2
-      - broker3
 
 
   db:
@@ -113,8 +109,6 @@ services:
       POSTGRES_DB: metube
     volumes:
       - ./db-data:/var/lib/postgresql/data
-
-
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -130,8 +124,8 @@ services:
 
   broker:
     image: confluentinc/cp-server:7.7.1
-    hostname: broker1
-    container_name: broker1
+    hostname: broker
+    container_name: broker
     depends_on:
       - zookeeper
     ports:
@@ -140,49 +134,12 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:8090'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     networks:
       - kafka-net
-
-  broker2:
-    image: confluentinc/cp-server:7.7.1
-    hostname: broker2
-    container_name: broker2
-    depends_on:
-      - zookeeper
-    ports:
-      - "9093:9093"
-    environment:
-      KAFKA_BROKER_ID: 2  # Broker 2 uchun ID
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:8090'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:29093,PLAINTEXT_HOST://localhost:9093
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-    networks:
-      - kafka-net
-
-  broker3:
-    image: confluentinc/cp-server:7.7.1
-    hostname: broker3
-    container_name: broker3
-    depends_on:
-      - zookeeper
-    ports:
-      - "9094:9094"
-    environment:
-      KAFKA_BROKER_ID: 3  # Broker 3 uchun ID
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:8090'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094,PLAINTEXT_HOST://localhost:9094
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-    networks:
-      - kafka-net
-
-
 
   kafka-manager:
     image: hlebalbau/kafka-manager
