@@ -151,7 +151,7 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 1234
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092
+      KAFKA_BOOTSTRAP_SERVERS: broker:9092
     depends_on:
       - eureka-service
       - db
@@ -188,9 +188,9 @@ services:
     hostname: zookeeper
     container_name: zookeeper
     ports:
-      - "2181:2181"
+      - "8090:8090"
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_CLIENT_PORT: 8090
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       - kafka-net
@@ -205,7 +205,7 @@ services:
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:8090'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -217,7 +217,7 @@ services:
   kafka-manager:
     image: hlebalbau/kafka-manager
     environment:
-      ZK_HOSTS: zookeeper:2181
+      ZK_HOSTS: zookeeper:8090
     ports:
       - "9000:9000"
     depends_on:
