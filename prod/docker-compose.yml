@@ -70,7 +70,7 @@ services:
       - eureka-service
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:5
+    image: saidaloshamsiyev1/auth-service1:6
     ports:
       - "8084:8084"
     environment:
@@ -78,15 +78,17 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092,broker2:29093,broker3:29094
     depends_on:
       - eureka-service
       - db
       - broker
+      - broker2
+      - broker3
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:9
+    image: saidaloshamsiyev1/channel-service1:10
     ports:
       - "8085:8085"
     environment:
@@ -94,11 +96,13 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092,broker2:29093,broker3:29094 # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
       - broker
+      - broker2
+      - broker3
 
 
   db:
