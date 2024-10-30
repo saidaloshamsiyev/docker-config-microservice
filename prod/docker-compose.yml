@@ -82,7 +82,7 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092
+      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker:29093,broker:29094
     depends_on:
       - eureka-service
       - db
@@ -98,7 +98,7 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092  # Kafka broker ulanish manzili
+      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker:29093,broker:29094 # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
