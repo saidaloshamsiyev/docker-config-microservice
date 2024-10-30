@@ -82,7 +82,7 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker:29093,broker:29094
+      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker2:29093,broker3:29094
     depends_on:
       - eureka-service
       - db
