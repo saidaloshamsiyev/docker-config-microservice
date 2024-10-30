@@ -54,6 +54,7 @@
 #    volumes:
 #      - ./db-data:/var/lib/postgresql/data
 
+
 services:
   eureka-service:
     image: saidaloshamsiyev1/eureka-service
