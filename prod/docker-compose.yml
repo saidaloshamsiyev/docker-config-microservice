@@ -86,7 +86,9 @@ services:
     depends_on:
       - eureka-service
       - db
-      - broker
+      - broker1
+      - broker2
+      - broker3
 
 
   channel-service:
@@ -102,7 +104,9 @@ services:
     depends_on:
       - eureka-service
       - db
-      - broker
+      - broker1
+      - broker2
+      - broker3
 
 
   db:
