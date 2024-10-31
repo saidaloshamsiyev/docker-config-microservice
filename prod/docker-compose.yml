@@ -20,15 +20,15 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:13
+    image: saidaloshamsiyev1/auth-service1:14
     ports:
       - "8084:8084"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
       - broker
       - eureka-service
@@ -38,15 +38,15 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:16
+    image: saidaloshamsiyev1/channel-service1:17
     ports:
       - "8085:8085"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
+      KAFKA_BOOTSTRAP_SERVERS: broker:29092
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
       - broker
       - eureka-service
