@@ -31,8 +31,7 @@ services:
       - eureka-service
       - db
       - broker
-    networks:
-      - kafka-net
+
 
 
   channel-service:
@@ -49,8 +48,7 @@ services:
       - eureka-service
       - db
       - broker
-    networks:
-      - kafka-net
+
 
 
   db:
