@@ -20,7 +20,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:12
+    image: saidaloshamsiyev1/auth-service1:13
     ports:
       - "8084:8084"
     environment:
@@ -38,7 +38,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:15
+    image: saidaloshamsiyev1/channel-service1:16
     ports:
       - "8085:8085"
     environment:
@@ -94,6 +94,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
