@@ -74,7 +74,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:10
+    image: saidaloshamsiyev1/auth-service1:11
     ports:
       - "8084:8084"
     environment:
@@ -92,7 +92,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:13
+    image: saidaloshamsiyev1/channel-service1:14
     ports:
       - "8085:8085"
     environment:
@@ -100,13 +100,14 @@ services:
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
-      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker:29093,broker:29094 # Kafka broker ulanish manzili
+      KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker2:29093,broker3:29094 # Kafka broker ulanish manzili
     depends_on:
       - eureka-service
       - db
       - broker1
       - broker2
       - broker3
+
 
 
   db:
@@ -144,7 +145,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
@@ -163,7 +164,7 @@ services:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:29093,PLAINTEXT_HOST://localhost:9093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
@@ -182,7 +183,7 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094,PLAINTEXT_HOST://localhost:9094
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
