@@ -1,59 +1,3 @@
-#services:
-#  eureka-service:
-#    image: saidaloshamsiyev1/eureka-service
-#    ports:
-#      - "8761:8761"
-#
-#  gateway-service:
-#    image: saidaloshamsiyev1/gateway-service
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      EUREKA_URI: http://eureka-service:8761/eureka/
-#    depends_on:
-#      - eureka-service
-#
-#
-#  auth-service:
-#    image: saidaloshamsiyev1/auth-service
-#    ports:
-#      - "8084:8084"
-#    environment:
-#      EUREKA_URI: http://eureka-service:8761/eureka/
-#      DB_HOST: db
-#      DB_USERNAME: postgres
-#      DB_PASSWORD: 8463
-#    depends_on:
-#      - eureka-service
-#      - db
-#
-#
-#  channel-service:
-#    image: saidaloshamsiyev1/channel-service
-#    ports:
-#      - "8085:8085"
-#    environment:
-#      EUREKA_URI: http://eureka-service:8761/eureka/
-#      DB_HOST: db
-#      DB_USERNAME: postgres
-#      DB_PASSWORD: 8463
-#    depends_on:
-#      - eureka-service
-#      - db
-#
-#
-#
-#  db:
-#    image: postgres
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: 8463
-#      POSTGRES_DB: metube
-#    volumes:
-#      - ./db-data:/var/lib/postgresql/data
-
 
 services:
   eureka-service:
@@ -147,13 +91,13 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29092:29092"  # Portni 29092 ga o'zgartiring
+      - "9092:9092"
+      - "9101:9101"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092  # Ushbu portni yangilang
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
@@ -167,13 +111,13 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29093:29093"  # Portni 29093 ga o'zgartiring
+      - "9093:9093"
+      - "9102:9102"
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29093  # Ushbu portni yangilang
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:29093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:29093,PLAINTEXT_HOST://localhost:9093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
@@ -187,19 +131,18 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29094:29094"  # Portni 29094 ga o'zgartiring
+      - "9094:9094"
+      - "9103:9103"
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29094  # Ushbu portni yangilang
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094,PLAINTEXT_HOST://localhost:9094
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     networks:
       - kafka-net
-
 
   kafka-manager:
     image: hlebalbau/kafka-manager
@@ -212,6 +155,7 @@ services:
     networks:
       - kafka-net
 
+
 networks:
   kafka-net:
-#    driver: bridge
+    driver: bridge
