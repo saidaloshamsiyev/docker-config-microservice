@@ -117,6 +117,8 @@ services:
 
   db:
     image: postgres
+    networks:
+      - kafka-net
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 8463
