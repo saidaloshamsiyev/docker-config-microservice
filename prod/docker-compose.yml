@@ -1,14 +1,9 @@
 
-
-
-
-
 services:
   eureka-service:
     image: saidaloshamsiyev1/eureka-service
     ports:
       - "8761:8761"
-
 
 
   gateway-service:
@@ -39,7 +34,6 @@ services:
       - kafka-net
 
 
-
   channel-service:
     image: saidaloshamsiyev1/channel-service1:15
     ports:
@@ -58,7 +52,6 @@ services:
       - kafka-net
 
 
-
   db:
     image: postgres
     networks:
@@ -69,8 +62,6 @@ services:
       POSTGRES_DB: metube
     volumes:
       - ./db-data:/var/lib/postgresql/data
-
-
 
 
   zookeeper:
@@ -108,7 +99,6 @@ services:
 
 
 
-
   kafka-manager:
     image: hlebalbau/kafka-manager
     environment:
@@ -119,6 +109,7 @@ services:
       - zookeeper
     networks:
       - kafka-net
+
 
 
 networks:
