@@ -1,4 +1,5 @@
 
+
 services:
   eureka-service:
     image: saidaloshamsiyev1/eureka-service
