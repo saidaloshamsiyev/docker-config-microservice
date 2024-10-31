@@ -155,7 +155,6 @@ services:
     networks:
       - kafka-net
 
-
 networks:
   kafka-net:
     driver: bridge
