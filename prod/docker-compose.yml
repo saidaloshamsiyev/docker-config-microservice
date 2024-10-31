@@ -21,7 +21,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:14
+    image: saidaloshamsiyev1/auth-service1:15
     ports:
       - "8084:8084"
     environment:
@@ -39,7 +39,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:17
+    image: saidaloshamsiyev1/channel-service1:18
     ports:
       - "8085:8085"
     environment:
