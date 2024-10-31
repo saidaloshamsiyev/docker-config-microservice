@@ -1,4 +1,8 @@
 
+
+
+
+
 services:
   eureka-service:
     image: saidaloshamsiyev1/eureka-service
@@ -72,6 +76,7 @@ services:
 
 
 
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper
@@ -83,6 +88,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       - kafka-net
+
+
 
   broker1:
     image: confluentinc/cp-server:7.7.1
@@ -104,6 +111,7 @@ services:
     networks:
       - kafka-net
 
+
   broker2:
     image: confluentinc/cp-server:7.7.1
     hostname: broker2
@@ -124,6 +132,7 @@ services:
     networks:
       - kafka-net
 
+
   broker3:
     image: confluentinc/cp-server:7.7.1
     hostname: broker3
@@ -143,6 +152,7 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     networks:
       - kafka-net
+
 
   kafka-manager:
     image: hlebalbau/kafka-manager
