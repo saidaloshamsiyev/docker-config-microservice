@@ -1,10 +1,10 @@
-
-
 services:
   eureka-service:
     image: saidaloshamsiyev1/eureka-service
     ports:
       - "8761:8761"
+    networks:
+      - kafka-net
 
 
   gateway-service:
@@ -15,6 +15,8 @@ services:
       EUREKA_URI: http://eureka-service:8761/eureka/
     depends_on:
       - eureka-service
+    networks:
+      - kafka-net
 
 
   auth-service:
@@ -31,7 +33,8 @@ services:
       - eureka-service
       - db
       - broker
-
+    networks:
+      - kafka-net
 
 
   channel-service:
@@ -48,7 +51,8 @@ services:
       - eureka-service
       - db
       - broker
-
+    networks:
+      - kafka-net
 
 
   db:
