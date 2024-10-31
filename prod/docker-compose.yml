@@ -89,6 +89,9 @@ services:
       - broker1
       - broker2
       - broker3
+    networks:
+      - kafka-net
+
 
 
   channel-service:
@@ -107,6 +110,8 @@ services:
       - broker1
       - broker2
       - broker3
+    networks:
+      - kafka-net
 
 
 
@@ -140,11 +145,12 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
+      - "29092:29092"  # Portni 29092 ga o'zgartiring
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092  # Ushbu portni yangilang
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -159,11 +165,12 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9093:9093"
+      - "29093:29093"  # Portni 29093 ga o'zgartiring
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29093  # Ushbu portni yangilang
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:29093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -178,17 +185,19 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9094:9094"
+      - "29094:29094"  # Portni 29094 ga o'zgartiring
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29094  # Ushbu portni yangilang
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:29094
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     networks:
       - kafka-net
+
 
   kafka-manager:
     image: hlebalbau/kafka-manager
