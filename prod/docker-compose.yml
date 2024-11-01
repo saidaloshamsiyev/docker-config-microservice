@@ -20,7 +20,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:15
+    image: saidaloshamsiyev1/auth-service1:16
     ports:
       - "8084:8084"
     environment:
