@@ -63,6 +63,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 8463
       POSTGRES_DB: metube
+    ports:
+      - "5432:5432"
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
