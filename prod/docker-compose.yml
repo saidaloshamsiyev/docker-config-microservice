@@ -36,6 +36,7 @@ services:
     #    networks:
     #      - kafka-net
 
+
   notification-service:
     image: saidaloshamsiyev1/notification-service1:2
     ports:
@@ -96,8 +97,6 @@ services:
       - kafka-net
 
 
-
-
   broker:
     image: confluentinc/cp-server:7.7.1
     hostname: broker
@@ -119,7 +118,6 @@ services:
       - kafka-net
 
 
-
   kafka-manager:
     image: hlebalbau/kafka-manager
     environment:
@@ -130,6 +128,7 @@ services:
       - zookeeper
     networks:
       - kafka-net
+
 
 networks:
   kafka-net:
