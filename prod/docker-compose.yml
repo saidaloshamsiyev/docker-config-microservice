@@ -97,7 +97,6 @@ services:
       - kafka-net
 
 
-
   broker:
     image: confluentinc/cp-server:7.7.1
     hostname: broker
