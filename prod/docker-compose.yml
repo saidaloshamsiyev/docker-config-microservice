@@ -38,7 +38,7 @@ services:
 
 
   notification-service:
-    image: saidaloshamsiyev1/notification-service1:5
+    image: saidaloshamsiyev1/notification-service1:6
     ports:
       - "8088:8088"
     environment:
@@ -58,7 +58,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:20
+    image: saidaloshamsiyev1/channel-service1:21
     ports:
       - "8085:8085"
     environment:
