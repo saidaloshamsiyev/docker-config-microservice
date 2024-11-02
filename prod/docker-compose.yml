@@ -35,33 +35,18 @@ services:
       - db
     #    networks:
     #      - kafka-net
-<<<<<<< Updated upstream
 
   notification-service:
-    image: saidaloshamsiyev1/notification-service1
-=======
-  
-  notification-service:
-    image: saidaloshamsiyev1/notification-service1:1
->>>>>>> Stashed changes
+    image: saidaloshamsiyev1/notification-service1:2
     ports:
       - "8088:8088"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
       KAFKA_BOOTSTRAP_SERVERS: 159.65.119.240:9092
-<<<<<<< Updated upstream
-
     depends_on:
       - broker
       - eureka-service
-
-=======
-    
-    depends_on:
-      - broker
-      - eureka-service
-    
->>>>>>> Stashed changes
+      - db
     networks:
       - kafka-net
 
