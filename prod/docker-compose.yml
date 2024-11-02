@@ -32,6 +32,8 @@ services:
       - broker
       - db
       - eureka-service
+    networks:
+      - kafka-net
 
 
 
