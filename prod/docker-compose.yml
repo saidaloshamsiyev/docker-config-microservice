@@ -20,7 +20,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:29
+    image: saidaloshamsiyev1/auth-service1:30
     ports:
       - "8084:8084"
     environment:
@@ -29,7 +29,6 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
     depends_on:
-      - broker
       - db
       - eureka-service
     networks:
