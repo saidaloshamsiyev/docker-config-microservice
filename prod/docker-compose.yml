@@ -78,7 +78,7 @@ services:
   interaction-service:
     image: saidaloshamsiyev1/intercation-service1:4
     ports:
-      - "8087:8087"
+      - "8089:8089"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
       DB_HOST: db
@@ -94,7 +94,7 @@ services:
   video-service:
     image: saidaloshamsiyev1/video-service1:2
     ports:
-      - "8087:8087"
+      - "8086:8086"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
       #      KAFKA_BOOTSTRAP_SERVERS: 159.65.119.240:9092,159.65.119.240:9093,159.65.119.240:9094
