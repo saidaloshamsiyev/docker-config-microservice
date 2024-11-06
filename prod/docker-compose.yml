@@ -76,7 +76,7 @@ services:
       - kafka-net
 
   interaction-service:
-    image: saidaloshamsiyev1/intercation-service1:3
+    image: saidaloshamsiyev1/intercation-service1:4
     ports:
       - "8087:8087"
     environment:
