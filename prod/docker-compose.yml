@@ -8,7 +8,7 @@ services:
 
 
   gateway-service:
-    image: saidaloshamsiyev1/gateway-service1:22
+    image: saidaloshamsiyev1/gateway-service1:23
     ports:
       - "8080:8080"
     environment:
@@ -20,7 +20,7 @@ services:
 
 
   auth-service:
-    image: saidaloshamsiyev1/auth-service1:30
+    image: saidaloshamsiyev1/auth-service1:32
     ports:
       - "8084:8084"
     environment:
@@ -37,7 +37,7 @@ services:
 
 
   notification-service:
-    image: saidaloshamsiyev1/notification-service1:7
+    image: saidaloshamsiyev1/notification-service1:8
     ports:
       - "8088:8088"
     environment:
@@ -57,7 +57,7 @@ services:
 
 
   channel-service:
-    image: saidaloshamsiyev1/channel-service1:23
+    image: saidaloshamsiyev1/channel-service1:26
     ports:
       - "8085:8085"
     environment:
@@ -76,19 +76,35 @@ services:
       - kafka-net
 
   interaction-service:
-    image: saidaloshamsiyev1/intercation-service1:1
+    image: saidaloshamsiyev1/intercation-service1:3
     ports:
       - "8087:8087"
     environment:
       EUREKA_URI: http://eureka-service:8761/eureka/
-#      KAFKA_BOOTSTRAP_SERVERS: 159.65.119.240:9092,159.65.119.240:9093,159.65.119.240:9094
       DB_HOST: db
       DB_USERNAME: postgres
       DB_PASSWORD: 8463
     depends_on:
-#      - broker
-#      - broker2
-#      - broker3
+      - eureka-service
+      - db
+    networks:
+      - kafka-net
+
+
+  video-service:
+    image: saidaloshamsiyev1/video-service1:2
+    ports:
+      - "8087:8087"
+    environment:
+      EUREKA_URI: http://eureka-service:8761/eureka/
+      #      KAFKA_BOOTSTRAP_SERVERS: 159.65.119.240:9092,159.65.119.240:9093,159.65.119.240:9094
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: 8463
+    depends_on:
+      #      - broker
+      #      - broker2
+      #      - broker3
       - eureka-service
       - db
     networks:
