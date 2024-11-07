@@ -31,8 +31,6 @@ services:
     depends_on:
       - db
       - eureka-service
-    networks:
-      - kafka-net
 
 
 
