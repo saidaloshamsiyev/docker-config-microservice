@@ -31,6 +31,8 @@ services:
     depends_on:
       - db
       - eureka-service
+    networks:
+      - kafka-net
 
 
 
@@ -72,6 +74,7 @@ services:
       - db
     networks:
       - kafka-net
+
 
   interaction-service:
     image: saidaloshamsiyev1/intercation-service1:4
