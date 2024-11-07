@@ -35,7 +35,6 @@ services:
       - kafka-net
 
 
-
   notification-service:
     image: saidaloshamsiyev1/notification-service1:9
     ports:
