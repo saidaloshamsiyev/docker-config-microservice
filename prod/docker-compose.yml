@@ -37,7 +37,7 @@ services:
 
 
   notification-service:
-    image: saidaloshamsiyev1/notification-service1:8
+    image: saidaloshamsiyev1/notification-service1:9
     ports:
       - "8088:8088"
     environment:
